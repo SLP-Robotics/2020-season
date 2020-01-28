@@ -20,8 +20,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.MotorSafety;
-import edu.wpi.first.wpilibj.CAN;
+//import edu.wpi.first.wpilibj.CAN;
 //import edu.wpi.first.wpilibj;
 
 /**
@@ -40,21 +39,6 @@ public class Robot extends TimedRobot {
   private final XboxController m_controller = new XboxController(0);
 
   private final Timer m_timer = new Timer();
-  
-  private final MotorSafety m_safety = new MotorSafety(){
-  
-    @Override
-    public void stopMotor() {
-      // TODO Auto-generated method stub
-      
-    }
-  
-    @Override
-    public String getDescription() {
-      // TODO Auto-generated method stub
-      return null;
-    }
-  };
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -164,22 +148,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+
+    m_robotDrive.feedWatchdog();
      if(m_controller.getAButtonPressed()) 
      {
        System.out.println("A Button Pressed!");
+
+       System.out.println(m_controller.getX(Hand.kRight));
      }
 
-     while(m_controller.getAButton())
-     {
-       m_safety.feed();
-       m_robotDrive.feedWatchdog();
-
-       m_robotDrive.tankDrive(.5, .5);
-     }
-
-     if(!m_safety.isAlive())
-     {
-       System.out.println("Motor is not alive!");
-     }
   }
 }
