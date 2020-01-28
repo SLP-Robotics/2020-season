@@ -20,7 +20,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import edu.wpi.first.wpilibj.CAN;
+import edu.wpi.first.wpilibj.MotorSafety;
+import edu.wpi.first.wpilibj.CAN;
+import edu.wpi.first.wpilibj.controller.PIDController;
 //import edu.wpi.first.wpilibj;
 
 /**
@@ -29,16 +31,19 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
 
-  private DifferentialDrive m_robotDrive; 
+  private DifferentialDrive m_robotDrive;
 
   private final XboxController m_controller = new XboxController(0);
 
   private final Timer m_timer = new Timer();
+
+  private final CAN m_can = new CAN(0, 5, 2);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -50,16 +55,18 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    SpeedController m_frontLeft = new PWMVictorSPX(1);
-    SpeedController m_rearLeft = new PWMVictorSPX(2);
-    SpeedControllerGroup left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
+    /*final SpeedController m_frontLeft = new PWMVictorSPX(0)
+    final SpeedController m_rearLeft = new PWMVictorSPX(1);
+    final SpeedControllerGroup left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
 
-    SpeedController m_frontRight = new PWMVictorSPX(3);
-    SpeedController m_rearRight = new PWMVictorSPX(4);
-    SpeedControllerGroup right = new SpeedControllerGroup(m_frontRight, m_rearRight);
+    final SpeedController m_frontRight = new PWMVictorSPX(2);
+    final SpeedController m_rearRight = new PWMVictorSPX(3);
+    final SpeedControllerGroup right = new SpeedControllerGroup(m_frontRight, m_rearRight);*/
 
-    m_robotDrive = new DifferentialDrive(left, right);
-  
+    //m_robotDrive = new DifferentialDrive(left, right);
+    //m_robotDrive.feedWatchdog();
+
+
   }
 
   /**
@@ -139,6 +146,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
+    
     CommandScheduler.getInstance().cancelAll();
     System.out.println("Initialized! <3");
   }
@@ -146,16 +154,16 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically during test mode.
    */
+   //UP IS NEGATIVE DOWN IS POSITIVE
+   //RIGHT IS POSITIVE LEFT IS NEGATIVE
   @Override
   public void testPeriodic() {
-
-    m_robotDrive.feedWatchdog();
+    m_robotDrive.feed();
      if(m_controller.getAButtonPressed()) 
      {
        System.out.println("A Button Pressed!");
 
-       System.out.println(m_controller.getX(Hand.kRight));
      }
-
+     m_robotDrive.tankDrive(m_controller.getY(Hand.kLeft), m_controller.getY(Hand.kRight));
   }
 }
