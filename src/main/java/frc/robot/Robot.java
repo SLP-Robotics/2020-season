@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 //import java.util.logging.LogManager;
 
-import edu.wpi.first.wpilibj.PWMVictorSPX;
+//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -20,9 +22,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.MotorSafety;
-import edu.wpi.first.wpilibj.CAN;
-import edu.wpi.first.wpilibj.controller.PIDController;
+//import edu.wpi.first.wpilibj.MotorSafety;
+//import edu.wpi.first.wpilibj.CAN;
+//import edu.wpi.first.wpilibj.controller.PIDController;
 //import edu.wpi.first.wpilibj;
 
 /**
@@ -39,11 +41,9 @@ public class Robot extends TimedRobot {
 
   private DifferentialDrive m_robotDrive;
 
-  private final XboxController m_controller = new XboxController(0);
-
   private final Timer m_timer = new Timer();
 
-  private final CAN m_can = new CAN(0, 5, 2);
+  //private final CAN m_can = new CAN(0, 5, 2);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -158,12 +158,6 @@ public class Robot extends TimedRobot {
    //RIGHT IS POSITIVE LEFT IS NEGATIVE
   @Override
   public void testPeriodic() {
-    m_robotDrive.feed();
-     if(m_controller.getAButtonPressed()) 
-     {
-       System.out.println("A Button Pressed!");
 
-     }
-     m_robotDrive.tankDrive(m_controller.getY(Hand.kLeft), m_controller.getY(Hand.kRight));
   }
 }
