@@ -24,8 +24,6 @@ public final class Main {
    * <p>If you change your main robot class, change the parameter type.
    */
   public static void main(final String... args) {
-    System.out.println("STarted!");
     RobotBase.startRobot(Robot::new);
-    System.out.println("Robot Initialized...");
   }
 }
