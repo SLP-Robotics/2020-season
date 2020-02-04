@@ -30,9 +30,6 @@ public class DriveSubsystem extends SubsystemBase {
 
    private DifferentialDrive m_drive;
 
-   //0 and 3 are left
-   //1 and 4 are right
-
   public DriveSubsystem() {
     leftMaster = new WPI_VictorSPX(2);
     leftFollower = new WPI_VictorSPX(0);

@@ -14,8 +14,11 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.PickupSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -30,6 +33,10 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem m_driveTrain = new DriveSubsystem();
+
+  private final PickupSubsystem m_PickupSubsystem = new PickupSubsystem();
+
+  private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
 
 //  private final XboxController m_controller = new XboxController(0);
   private final Joystick m_primaryTank = new Joystick(0);
@@ -63,6 +70,17 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    JoystickButton intakeButton = new JoystickButton(m_primaryTank, 5);
+    JoystickButton shooterButton = new JoystickButton(m_primaryTank, 1);
+    JoystickButton reverseIntake = new JoystickButton(m_primaryTank, 4);
+
+    intakeButton.whenPressed(() -> m_PickupSubsystem.Forward());
+    intakeButton.whenReleased(() -> m_PickupSubsystem.Stop());
+    reverseIntake.whenReleased(() -> m_PickupSubsystem.Stop());
+    reverseIntake.whenPressed(() -> m_PickupSubsystem.Backward());
+
+    //shooterButton.whenPressed(() -> m_ShooterSubsystem)
+
   }
 
 
