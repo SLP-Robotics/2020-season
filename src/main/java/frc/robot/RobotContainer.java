@@ -10,8 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
@@ -37,6 +37,8 @@ public class RobotContainer {
   private final PickupSubsystem m_PickupSubsystem = new PickupSubsystem();
 
   private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+
+  private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
 
 //  private final XboxController m_controller = new XboxController(0);
   private final Joystick m_primaryTank = new Joystick(0);
@@ -73,14 +75,23 @@ public class RobotContainer {
     JoystickButton intakeButton = new JoystickButton(m_primaryTank, 5);
     JoystickButton shooterButton = new JoystickButton(m_primaryTank, 1);
     JoystickButton reverseIntake = new JoystickButton(m_primaryTank, 4);
+    JoystickButton climbUpButton = new JoystickButton(m_primaryTank, 3);
+    JoystickButton climbDownButton = new JoystickButton(m_primaryTank, 2);
 
     intakeButton.whenPressed(() -> m_PickupSubsystem.Forward());
     intakeButton.whenReleased(() -> m_PickupSubsystem.Stop());
-    reverseIntake.whenReleased(() -> m_PickupSubsystem.Stop());
+
     reverseIntake.whenPressed(() -> m_PickupSubsystem.Backward());
+    reverseIntake.whenReleased(() -> m_PickupSubsystem.Stop());
 
-    //shooterButton.whenPressed(() -> m_ShooterSubsystem)
+    shooterButton.whenPressed(() -> m_ShooterSubsystem.Shoot());
+    shooterButton.whenReleased(() -> m_ShooterSubsystem.Stop());
+    
+    climbUpButton.whenPressed(() -> m_ClimbSubsystem.Up());
+    climbUpButton.whenReleased(() -> m_ClimbSubsystem.Stop());
 
+    climbDownButton.whenPressed(() -> m_ClimbSubsystem.Down());
+    climbDownButton.whenReleased(() -> m_ClimbSubsystem.Stop());
   }
 
 

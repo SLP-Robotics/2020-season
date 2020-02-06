@@ -16,7 +16,7 @@ public class ClimbSubsystem extends SubsystemBase {
    */
 
    //Placeholder motor
-   Jaguar motor = new Jaguar(0);
+  private final Jaguar m_motor = new Jaguar(0);
   public ClimbSubsystem() {
 
   }
@@ -29,11 +29,16 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void Up()
   {
-
+    m_motor.set(1.0);
   }
 
   public void Down()
   {
+    m_motor.set(-1.0);
+  }
 
+  public void Stop()
+  {
+    m_motor.set(0);
   }
 }

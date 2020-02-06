@@ -8,15 +8,16 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class GunRotationSubsystem extends SubsystemBase {
   /**
-   * Creates a new ShooterSubsystem.
+   * Creates a new GunRotationSubsystem.
    */
 
-  
-  public ShooterSubsystem() {
-    
+
+  public GunRotationSubsystem() {
+
   }
 
   @Override
@@ -24,13 +25,10 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void Shoot()
+  //Minimum 28.03
+  //Maximum 55.5
+  public void Rotate(double pos)
   {
-
-  }
-
-  public void Stop()
-  {
-
+    
   }
 }

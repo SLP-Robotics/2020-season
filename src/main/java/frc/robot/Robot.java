@@ -7,18 +7,12 @@
 
 package frc.robot;
 
-//import java.util.logging.LogManager;
-
-//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import edu.wpi.first.wpilibj.MotorSafety;
-//import edu.wpi.first.wpilibj.CAN;
-//import edu.wpi.first.wpilibj.controller.PIDController;
-//import edu.wpi.first.wpilibj;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -36,6 +30,8 @@ public class Robot extends TimedRobot {
 
   private final Timer m_timer = new Timer();
 
+  private Joystick m_primaryTank = new Joystick(0);
+
   //private final CAN m_can = new CAN(0, 5, 2);
 
   /**
@@ -47,19 +43,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
-    /*final SpeedController m_frontLeft = new PWMVictorSPX(0)
-    final SpeedController m_rearLeft = new PWMVictorSPX(1);
-    final SpeedControllerGroup left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
-
-    final SpeedController m_frontRight = new PWMVictorSPX(2);
-    final SpeedController m_rearRight = new PWMVictorSPX(3);
-    final SpeedControllerGroup right = new SpeedControllerGroup(m_frontRight, m_rearRight);*/
-
-    //m_robotDrive = new DifferentialDrive(left, right);
-    //m_robotDrive.feedWatchdog();
-
-
   }
 
   /**
@@ -133,7 +116,9 @@ public class Robot extends TimedRobot {
    * This function is called periodically during operator control.
    */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() 
+  {
+    System.out.println(m_primaryTank.getAxisType(4));
   }
 
   @Override
