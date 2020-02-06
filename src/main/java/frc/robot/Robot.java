@@ -7,7 +7,13 @@
 
 package frc.robot;
 
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.Joystick;
+=======
+//import java.util.logging.LogManager;
+
+//import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+>>>>>>> bac44c4e3f1aceed032f18ae569d95644fd1e855
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
