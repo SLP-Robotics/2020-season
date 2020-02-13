@@ -19,37 +19,44 @@ public class DriveSubsystem extends SubsystemBase {
    * Creates a new DriveSubsystem.
    */
 
+   //Declare Motor Controllers
    private WPI_VictorSPX leftMaster;
    private WPI_VictorSPX rightMaster;
    private WPI_VictorSPX leftFollower;
    private WPI_VictorSPX rightFollower;
 
+   //Declare Speed Controller Groups
    private SpeedControllerGroup left;
    private SpeedControllerGroup right;
 
+   //Declare Differential Drive
    private DifferentialDrive m_drive;
 
   public DriveSubsystem() {
+    //Instantiate left motor controller and right motor controller
     leftMaster = new WPI_VictorSPX(2);
     leftFollower = new WPI_VictorSPX(0);
 
     rightMaster = new WPI_VictorSPX(3);
     rightFollower = new WPI_VictorSPX(1);
 
+    //Set motors to factory default settings
     leftMaster.configFactoryDefault();
     leftFollower.configFactoryDefault();
     rightMaster.configFactoryDefault();
     rightFollower.configFactoryDefault();
 
+    //Set neutral mode to coast
     leftMaster.setNeutralMode(NeutralMode.Coast);
     rightMaster.setNeutralMode(NeutralMode.Coast);
     rightFollower.setNeutralMode(NeutralMode.Coast);
     leftFollower.setNeutralMode(NeutralMode.Coast);
 
-
+    //Instantiate speed controller groups
     left = new SpeedControllerGroup(leftMaster, leftFollower);
     right = new SpeedControllerGroup(rightMaster, rightFollower);
 
+    //Instantiate the new differential drive
     m_drive = new DifferentialDrive(left, right);
   }
 
@@ -58,9 +65,13 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  //Drive function, passes in x and y values for speed
   public void drive(double x, double y)
   {
+    //Reverse input
+    x *= -1;
+    //Use arcade drive to drive the bot
+  
     m_drive.arcadeDrive(x, y);
-    System.out.println(x + " " + y);
   }
 }

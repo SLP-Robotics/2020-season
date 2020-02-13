@@ -7,18 +7,17 @@
 
 package frc.robot;
 
-<<<<<<< HEAD
 import edu.wpi.first.wpilibj.Joystick;
-=======
 //import java.util.logging.LogManager;
 
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
->>>>>>> bac44c4e3f1aceed032f18ae569d95644fd1e855
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -36,7 +35,11 @@ public class Robot extends TimedRobot {
 
   private final Timer m_timer = new Timer();
 
-  private Joystick m_primaryTank = new Joystick(0);
+  private final Joystick m_primaryTank = new Joystick(0);
+
+  private static final SPI.Port port = SPI.Port.kOnboardCS0;
+
+  ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(port);
 
   //private final CAN m_can = new CAN(0, 5, 2);
 
@@ -49,6 +52,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_gyro.calibrate();
   }
 
   /**
@@ -124,7 +128,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    System.out.println(m_primaryTank.getAxisType(4));
+    if(m_primaryTank.getRawButtonPressed(8))
+      System.out.println(m_gyro.getAngle());
+    else if(m_primaryTank.getRawButtonPressed(9))
+      m_gyro.reset();
   }
 
   @Override

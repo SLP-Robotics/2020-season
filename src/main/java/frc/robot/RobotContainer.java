@@ -10,10 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.AutoDriveCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GunRotationSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,9 +28,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
   private final DriveSubsystem m_driveTrain = new DriveSubsystem();
 
@@ -40,9 +37,15 @@ public class RobotContainer {
 
   private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
 
+  private final GunRotationSubsystem m_GunRotationSubsystem = new GunRotationSubsystem();
+
+  //Declare commands
+  private final AutoDriveCommand m_autoCommand = new AutoDriveCommand(m_driveTrain);
+
 //  private final XboxController m_controller = new XboxController(0);
   private final Joystick m_primaryTank = new Joystick(0);
   private final Joystick m_primaryTurn = new Joystick(1);
+  private final Joystick m_secondaryDriver = new Joystick(2);
 
 
 
@@ -63,6 +66,13 @@ public class RobotContainer {
         m_driveTrain
       )
     );
+
+    m_PickupSubsystem.setDefaultCommand(
+      new RunCommand(
+        () -> m_PickupSubsystem.Move(m_secondaryDriver.getY()), 
+        m_PickupSubsystem
+      )
+    );
   }
 
   /**
@@ -72,16 +82,18 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton intakeButton = new JoystickButton(m_primaryTank, 5);
-    JoystickButton shooterButton = new JoystickButton(m_primaryTank, 1);
-    JoystickButton reverseIntake = new JoystickButton(m_primaryTank, 4);
+    JoystickButton intakeButton = new JoystickButton(m_primaryTurn, 4);
+    JoystickButton reverseIntake = new JoystickButton(m_primaryTurn, 5);
+    JoystickButton shooterButton = new JoystickButton(m_primaryTurn, 3);
     JoystickButton climbUpButton = new JoystickButton(m_primaryTank, 3);
     JoystickButton climbDownButton = new JoystickButton(m_primaryTank, 2);
+    JoystickButton rotateUpGun = new JoystickButton(m_primaryTank, 3);
+    JoystickButton rotateDownGun = new JoystickButton(m_primaryTank, 2);
 
-    intakeButton.whenPressed(() -> m_PickupSubsystem.Forward());
+    //intakeButton.whenPressed(() -> m_PickupSubsystem.Forward());
     intakeButton.whenReleased(() -> m_PickupSubsystem.Stop());
 
-    reverseIntake.whenPressed(() -> m_PickupSubsystem.Backward());
+    //reverseIntake.whenPressed(() -> m_PickupSubsystem.Backward());
     reverseIntake.whenReleased(() -> m_PickupSubsystem.Stop());
 
     shooterButton.whenPressed(() -> m_ShooterSubsystem.Shoot());
@@ -92,8 +104,13 @@ public class RobotContainer {
 
     climbDownButton.whenPressed(() -> m_ClimbSubsystem.Down());
     climbDownButton.whenReleased(() -> m_ClimbSubsystem.Stop());
-  }
 
+    rotateUpGun.whenPressed(() -> m_GunRotationSubsystem.Up());
+    rotateUpGun.whenReleased(() -> m_GunRotationSubsystem.Stop());
+
+    rotateDownGun.whenPressed(() -> m_GunRotationSubsystem.Down());
+    rotateDownGun.whenReleased(() -> m_GunRotationSubsystem.Stop());
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -8,18 +8,18 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Talon;
 
 public class PickupSubsystem extends SubsystemBase {
   /**
    * Creates a new PickupSubsystem.
    */
 
-  private Jaguar pickupMotor;
+  private Talon pickupMotor;
 
   public PickupSubsystem()
   {
-    pickupMotor = new Jaguar(0);
+    pickupMotor = new Talon(2);
   }
 
   @Override
@@ -29,16 +29,29 @@ public class PickupSubsystem extends SubsystemBase {
 
   public void Forward()
   {
-    pickupMotor.set(1);
+    pickupMotor.set(0.5);
   }
 
   public void Backward()
   {
-    pickupMotor.set(-1);
+    pickupMotor.set(-0.5);
   }
 
   public void Stop()
   {
     pickupMotor.stopMotor();
+  }
+
+  public void Move(double speed)
+  {
+    if(speed < 0.6)
+    {
+      pickupMotor.set(speed);
+    }
+    else if(speed >= 0.6)
+    {
+      pickupMotor.set(0.6);
+    }
+    
   }
 }
