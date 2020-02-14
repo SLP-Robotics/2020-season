@@ -7,7 +7,9 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Relay.Value;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -15,12 +17,15 @@ public class ShooterSubsystem extends SubsystemBase {
    * Creates a new ShooterSubsystem.
    */
 
-   //private Jaguar[] shootMotors;
+   //Create an array of Talons to shoot, only 2
+   private Talon[] shootMotors;
+   private Relay conveyorRelay = new Relay(5);
   
+   //Instantiate the talons
   public ShooterSubsystem() 
   {
-    //shootMotors[0] = new Jaguar(3);
-    //shootMotors[1] = new Jaguar(4);
+    shootMotors[0] = new Talon(3);
+    shootMotors[1] = new Talon(4);
   }
 
   @Override
@@ -28,21 +33,35 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  //Shoot the balls
   public void Shoot()
   {
-    //shootMotors[0].set(0.5);
-    //shootMotors[1].set(-0.5);
+    shootMotors[0].set(1);
+    shootMotors[1].set(-1);
   }
 
+  //Stop the shooter motors
   public void Stop()
   {
-    //shootMotors[0].stopMotor();
-    //shootMotors[1].stopMotor();
+    shootMotors[0].set(-0.1);
+    shootMotors[1].set(-0.1);
   }
 
+  //Stop the conveyor motors
+  public void StopConveyor()
+  {
+    conveyorRelay.stopMotor();
+  }
+
+  //Set the motors to go forward
+  public void Foward()
+  {
+    conveyorRelay.set(Value.kForward);
+  }
+
+  //Set the motors to reverse
   public void Reverse()
   {
-    //shootMotors[0].set(-0.5);
-    //shootMotors[1].set(0.5);
+    conveyorRelay.set(Value.kReverse);
   }
 }

@@ -8,10 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.SPI.Port;
 
 public class GunRotationSubsystem extends SubsystemBase {
   /**
@@ -33,23 +30,21 @@ public class GunRotationSubsystem extends SubsystemBase {
 
   //Minimum 28.03
   //Maximum 55.5
+  //Set the motor to rotate the gun up
   public void Up()
   {
     m_motor.set(0.3);
   }
 
+  //Set the motor to rotate the gun down
   public void Down()
   {
     m_motor.set(-0.3);
   }
 
+  //Stop the motor
   public void Stop()
   {
     m_motor.stopMotor();
-  }
-
-  public void getAngle()
-  {
-
   }
 }

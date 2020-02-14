@@ -70,8 +70,11 @@ public class DriveSubsystem extends SubsystemBase {
   {
     //Reverse input
     x *= -1;
+
+    //Make the turning less jumpy
+    y *= 0.5;
+
     //Use arcade drive to drive the bot
-  
     m_drive.arcadeDrive(x, y);
   }
 }

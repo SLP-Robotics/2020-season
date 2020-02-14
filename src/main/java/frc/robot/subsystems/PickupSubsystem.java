@@ -15,10 +15,11 @@ public class PickupSubsystem extends SubsystemBase {
    * Creates a new PickupSubsystem.
    */
 
-  private Talon pickupMotor;
+  //Create a new Talon motor controller
+  private final Talon pickupMotor;
 
-  public PickupSubsystem()
-  {
+  //Constructor to create a new Talon motor set to PWM ID 2
+  public PickupSubsystem() {
     pickupMotor = new Talon(2);
   }
 
@@ -27,31 +28,25 @@ public class PickupSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void Forward()
-  {
-    pickupMotor.set(0.5);
-  }
-
-  public void Backward()
-  {
-    pickupMotor.set(-0.5);
-  }
-
-  public void Stop()
-  {
+  //Stop the motor
+  public void Stop() {
     pickupMotor.stopMotor();
   }
 
-  public void Move(double speed)
+  //Move the the ball pickup system motor
+  public void Move(final double speed)
   {
+    //Check if the speed is less than 0.6
     if(speed < 0.6)
     {
+      //Set the motor to be the speed passed in
       pickupMotor.set(speed);
     }
+    //Else if it is greater or equal to 0.6...
     else if(speed >= 0.6)
     {
+      //Set the pickup speed to its cap
       pickupMotor.set(0.6);
     }
-    
   }
 }

@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Talon;
 
 public class ClimbSubsystem extends SubsystemBase {
   /**
@@ -16,7 +17,7 @@ public class ClimbSubsystem extends SubsystemBase {
    */
 
    //Placeholder motor
-  private final Jaguar m_motor = new Jaguar(0);
+  private final Talon m_motor = new Talon(0);
   
   public ClimbSubsystem() {
 

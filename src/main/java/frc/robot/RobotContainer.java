@@ -59,6 +59,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
+    //Set the command to drive to bot
     m_driveTrain.setDefaultCommand(
       new RunCommand(
 //        () -> m_driveTrain.drive(m_controller.getY(Hand.kLeft), m_controller.getX(Hand.kLeft)),
@@ -67,6 +68,7 @@ public class RobotContainer {
       )
     );
 
+    //Set the command to move the motors to pickup balls
     m_PickupSubsystem.setDefaultCommand(
       new RunCommand(
         () -> m_PickupSubsystem.Move(m_secondaryDriver.getY()), 
@@ -82,20 +84,27 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton intakeButton = new JoystickButton(m_primaryTurn, 4);
-    JoystickButton reverseIntake = new JoystickButton(m_primaryTurn, 5);
-    JoystickButton shooterButton = new JoystickButton(m_primaryTurn, 3);
-    JoystickButton climbUpButton = new JoystickButton(m_primaryTank, 3);
-    JoystickButton climbDownButton = new JoystickButton(m_primaryTank, 2);
-    JoystickButton rotateUpGun = new JoystickButton(m_primaryTank, 3);
-    JoystickButton rotateDownGun = new JoystickButton(m_primaryTank, 2);
+    //JoystickButton intakeButton = new JoystickButton(m_primaryTurn, 4);
+    //JoystickButton reverseIntake = new JoystickButton(m_primaryTurn, 5);
+    
+    //Create all the new JoystickButton objects to bind to different functions
+    final JoystickButton shooterButton = new JoystickButton(m_primaryTurn, 3);
+    final JoystickButton climbUpButton = new JoystickButton(m_primaryTank, 3);
+    final JoystickButton climbDownButton = new JoystickButton(m_primaryTank, 2);
+    final JoystickButton rotateUpGun = new JoystickButton(m_primaryTank, 3);
+    final JoystickButton rotateDownGun = new JoystickButton(m_primaryTank, 2);
+    final JoystickButton forwardConveyer = new JoystickButton(m_secondaryDriver, 3);
+    final JoystickButton reverseConveyer = new JoystickButton(m_secondaryDriver, 2);
+    final JoystickButton gunUp = new JoystickButton(m_secondaryDriver, 5);
+    final JoystickButton gunDown = new JoystickButton(m_secondaryDriver, 4);
 
     //intakeButton.whenPressed(() -> m_PickupSubsystem.Forward());
-    intakeButton.whenReleased(() -> m_PickupSubsystem.Stop());
+    //intakeButton.whenReleased(() -> m_PickupSubsystem.Stop());
 
     //reverseIntake.whenPressed(() -> m_PickupSubsystem.Backward());
-    reverseIntake.whenReleased(() -> m_PickupSubsystem.Stop());
+    //reverseIntake.whenReleased(() -> m_PickupSubsystem.Stop());
 
+    //Bind all the buttons to functions
     shooterButton.whenPressed(() -> m_ShooterSubsystem.Shoot());
     shooterButton.whenReleased(() -> m_ShooterSubsystem.Stop());
     
@@ -110,6 +119,18 @@ public class RobotContainer {
 
     rotateDownGun.whenPressed(() -> m_GunRotationSubsystem.Down());
     rotateDownGun.whenReleased(() -> m_GunRotationSubsystem.Stop());
+
+    forwardConveyer.whenPressed(() -> m_ShooterSubsystem.Foward());
+    forwardConveyer.whenReleased(() -> m_ShooterSubsystem.StopConveyor());
+
+    reverseConveyer.whenPressed(() -> m_ShooterSubsystem.Reverse());
+    reverseConveyer.whenReleased(() -> m_ShooterSubsystem.StopConveyor());
+
+    gunUp.whenPressed(() -> m_GunRotationSubsystem.Up());
+    gunUp.whenReleased(() -> m_GunRotationSubsystem.Stop());
+
+    gunDown.whenPressed(() -> m_GunRotationSubsystem.Down());
+    gunDown.whenReleased(() -> m_GunRotationSubsystem.Stop());
   }
 
   /**
