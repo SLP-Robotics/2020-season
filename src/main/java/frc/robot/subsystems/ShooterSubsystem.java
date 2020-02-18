@@ -18,8 +18,8 @@ public class ShooterSubsystem extends SubsystemBase {
    */
 
    //Create an array of Talons to shoot, only 2
-   private Talon[] shootMotors;
-   private Relay conveyorRelay = new Relay(5);
+   private Talon[] shootMotors = new Talon[2];
+   private Relay conveyorRelay = new Relay(1);
   
    //Instantiate the talons
   public ShooterSubsystem() 
@@ -56,12 +56,12 @@ public class ShooterSubsystem extends SubsystemBase {
   //Set the motors to go forward
   public void Foward()
   {
-    conveyorRelay.set(Value.kForward);
+    conveyorRelay.set(Value.kReverse);
   }
 
   //Set the motors to reverse
   public void Reverse()
   {
-    conveyorRelay.set(Value.kReverse);
+    conveyorRelay.set(Value.kForward);
   }
 }

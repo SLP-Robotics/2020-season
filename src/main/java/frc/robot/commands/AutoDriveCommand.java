@@ -32,7 +32,10 @@ public class AutoDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drive.drive(0.2, 0);
+    if(m_timer.get() < 1)
+    {
+      m_drive.drive(0.5, 0);
+    }
   }
 
   // Called once the command ends or is interrupted.

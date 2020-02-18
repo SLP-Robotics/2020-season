@@ -34,19 +34,22 @@ public class PickupSubsystem extends SubsystemBase {
   }
 
   //Move the the ball pickup system motor
-  public void Move(final double speed)
+  public void Move(double speed)
   {
-    //Check if the speed is less than 0.6
-    if(speed < 0.6)
-    {
-      //Set the motor to be the speed passed in
-      pickupMotor.set(speed);
-    }
-    //Else if it is greater or equal to 0.6...
-    else if(speed >= 0.6)
-    {
-      //Set the pickup speed to its cap
-      pickupMotor.set(0.6);
-    }
+    // //Check if the speed is less than 0.6
+    // if(speed < 0.02)
+    // {
+    //   //Set the motor to be the speed passed in
+    //   pickupMotor.set(speed);
+    // }
+    // //Else if it is greater or equal to 0.6...
+    // else if(speed >= 0.4)
+    // {
+    //   //Set the pickup speed to its cap
+    //   pickupMotor.set(0.4);
+    // }
+    
+    speed *= 0.4;
+    pickupMotor.set(speed);
   }
 }

@@ -72,7 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
     x *= -1;
 
     //Make the turning less jumpy
-    y *= 0.5;
+    y *= 0.7;
 
     //Use arcade drive to drive the bot
     m_drive.arcadeDrive(x, y);
