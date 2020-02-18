@@ -43,8 +43,8 @@ public class ShooterSubsystem extends SubsystemBase {
   //Stop the shooter motors
   public void Stop()
   {
-    shootMotors[0].set(-0.1);
-    shootMotors[1].set(-0.1);
+    shootMotors[0].stopMotor();
+    shootMotors[1].stopMotor();
   }
 
   //Stop the conveyor motors

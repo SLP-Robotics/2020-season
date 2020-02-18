@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class GunRotationSubsystem extends SubsystemBase {
   /**
@@ -16,6 +17,7 @@ public class GunRotationSubsystem extends SubsystemBase {
    */
 
    private final Jaguar m_motor = new Jaguar(1);
+   private final Encoder m_encoder = new Encoder(0, 1);
 
   public GunRotationSubsystem() {
 

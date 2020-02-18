@@ -49,7 +49,7 @@ public class PickupSubsystem extends SubsystemBase {
     //   pickupMotor.set(0.4);
     // }
     
-    speed *= 0.4;
+    speed *= 0.45;
     pickupMotor.set(speed);
   }
 }
