@@ -19,32 +19,41 @@ public class ShooterSubsystem extends SubsystemBase {
 
    //Create an array of Talons to shoot, only 2
    private Talon[] shootMotors = new Talon[2];
+   //Create a Relay variable for the spike controlling the conveyor
    private Relay conveyorRelay = new Relay(1);
   
    //Instantiate the talons
   public ShooterSubsystem() 
   {
-    shootMotors[0] = new Talon(3);
-    shootMotors[1] = new Talon(4);
+    shootMotors[0] = new Talon(5);
+    shootMotors[1] = new Talon(6);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    // This method will be called once per sceduler run
   }
+  
 
   //Shoot the balls
   public void Shoot()
   {
-    shootMotors[0].set(1);
-    shootMotors[1].set(-1);
+    shootMotors[0].set(-0.8);
+    shootMotors[1].set(0.8);
   }
 
   //Stop the shooter motors
   public void Stop()
   {
-    shootMotors[0].stopMotor();
-    shootMotors[1].stopMotor();
+    shootMotors[0].set(0.2);
+    shootMotors[1].set(-0.2);
+  }
+
+  //Reverse the shooter, in case of jams
+  public void ReverseShooter()
+  {
+    shootMotors[0].set(0.3);
+    shootMotors[1].set(-0.3);
   }
 
   //Stop the conveyor motors

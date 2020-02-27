@@ -18,6 +18,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -53,6 +57,17 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     m_gyro.calibrate();
+    // if(CameraServer.getInstance().startAutomaticCapture(0) != null)
+    //   System.out.println("camera work");
+    // else
+    //   System.out.println("no work");
+
+    UsbCamera a = CameraServer.getInstance().startAutomaticCapture(0);
+    
+    if(a.isConnected())
+    {
+      System.out.println("bruh");
+    }
   }
 
   /**
@@ -76,6 +91,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    System.out.println("Nice job, dummy, now you're disabled!");
   }
 
   @Override
@@ -90,9 +106,11 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null)
       m_autonomousCommand.schedule();
-    }
+    else
+      System.out.println("Auto command did not schedule :(");
+    
 
     m_timer.reset();
     m_timer.start();
@@ -103,12 +121,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    // Drive for 2 seconds
-    if (m_timer.get() < 2.0) {
-        m_robotDrive.arcadeDrive(0.5, 0.0); // drive forwards half speed
-    } else {
-        m_robotDrive.stopMotor(); // stop robot
-    }
+    m_autonomousCommand.execute();
   }
 
   @Override
@@ -117,6 +130,12 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+
+    if(DriverStation.getInstance().getGameSpecificMessage().length() > 0)
+      System.out.printf("Message got: %s", DriverStation.getInstance().getGameSpecificMessage());
+    else
+      System.out.println("Not here :(");
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

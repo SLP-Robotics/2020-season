@@ -58,6 +58,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     //Instantiate the new differential drive
     m_drive = new DifferentialDrive(left, right);
+    
   }
 
   @Override
@@ -68,6 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
   //Drive function, passes in x and y values for speed
   public void drive(double x, double y)
   {
+
     //Reverse input
     x *= -1;
 
@@ -75,6 +77,12 @@ public class DriveSubsystem extends SubsystemBase {
     y *= 0.7;
 
     //Use arcade drive to drive the bot
+    m_drive.arcadeDrive(x, y);
+  }
+
+  public void AutoDrive(double x, double y)
+  {
+    x *= -1;
     m_drive.arcadeDrive(x, y);
   }
 }

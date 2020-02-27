@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.commands.AutoDriveCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -42,7 +43,7 @@ public class RobotContainer {
   //Declare commands
   private final AutoDriveCommand m_autoCommand = new AutoDriveCommand(m_driveTrain);
 
-//  private final XboxController m_controller = new XboxController(0);
+  //private final XboxController m_controller = new XboxController(0);
   private final Joystick m_primaryTank = new Joystick(0);
   private final Joystick m_primaryTurn = new Joystick(1);
   private final Joystick m_secondaryDriver = new Joystick(2);
@@ -75,6 +76,8 @@ public class RobotContainer {
         m_PickupSubsystem
       )
     );
+
+    m_ShooterSubsystem.Stop();
   }
 
   /**
@@ -88,7 +91,7 @@ public class RobotContainer {
     //JoystickButton reverseIntake = new JoystickButton(m_primaryTurn, 5);
     
     //Create all the new JoystickButton objects to bind to different functions
-    final JoystickButton shooterButton = new JoystickButton(m_primaryTank, 1);
+    //final JoystickButton shooterButton = new JoystickButton(m_primaryTank, 1);
     final JoystickButton climbUpButton = new JoystickButton(m_primaryTank, 3);
     final JoystickButton climbDownButton = new JoystickButton(m_primaryTank, 2);
     final JoystickButton rotateUpGun = new JoystickButton(m_primaryTank, 3);
@@ -106,8 +109,8 @@ public class RobotContainer {
     //reverseIntake.whenReleased(() -> m_PickupSubsystem.Stop());
 
     //Bind all the buttons to functions
-    shooterButton.whenPressed(() -> m_ShooterSubsystem.Shoot());
-    shooterButton.whenReleased(() -> m_ShooterSubsystem.Stop());
+    //shooterButton.whenPressed(() -> m_ShooterSubsystem.Shoot());
+    //shooterButton.whenReleased(() -> m_ShooterSubsystem.Stop());
     
     climbUpButton.whenPressed(() -> m_ClimbSubsystem.Up());
     climbUpButton.whenReleased(() -> m_ClimbSubsystem.Stop());

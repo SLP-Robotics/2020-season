@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
@@ -17,7 +18,7 @@ public class AutoDriveCommand extends CommandBase {
 
   private final Timer m_timer = new Timer();
 
-  public AutoDriveCommand(final DriveSubsystem drive) {
+  public AutoDriveCommand(DriveSubsystem drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
 
@@ -27,14 +28,15 @@ public class AutoDriveCommand extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_timer.get() < 1)
+    if(m_timer.get() < 3)
     {
-      m_drive.drive(0.5, 0);
+      //m_drive.AutoDrive(0.5, 0);
     }
   }
 
