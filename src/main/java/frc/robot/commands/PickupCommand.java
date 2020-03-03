@@ -8,33 +8,61 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.Timer;
+
+import frc.robot.subsystems.*;
 
 public class PickupCommand extends CommandBase {
   /**
    * Creates a new PickupCommands.
    */
-  public PickupCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private PickupSubsystem pickupSubsystem;
+  private ShooterSubsystem shooterSubsystem;
+
+  public static boolean running;
+
+  Timer m_timer;
+
+  public PickupCommand(PickupSubsystem pickup, ShooterSubsystem shooter) {
+    addRequirements(pickup);
+    addRequirements(shooter);
+
+    pickupSubsystem = pickup;
+    shooterSubsystem = shooter;
+
+    m_timer = new Timer();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_timer.reset();
+    shooterSubsystem.Stop();
+
+    running = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+      pickupSubsystem.Move(0.45);
+      shooterSubsystem.Foward();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    running = true;
+    pickupSubsystem.Stop();
+    shooterSubsystem.StopConveyor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(running)
+      return true;
     return false;
   }
 }

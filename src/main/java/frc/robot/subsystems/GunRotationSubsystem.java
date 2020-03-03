@@ -19,6 +19,8 @@ public class GunRotationSubsystem extends SubsystemBase {
    * Creates a new GunRotationSubsystem.
    */
 
+  private static final int rotationPerDegree = 5;
+
    private final WPI_VictorSPX m_motor = new WPI_VictorSPX(8);
    private final Encoder m_encoder = new Encoder(0, 1);
 
@@ -49,5 +51,10 @@ public class GunRotationSubsystem extends SubsystemBase {
   public void Stop()
   {
     m_motor.stopMotor();
+  }
+
+  public double GetRotation()
+  {
+    return (m_encoder.get() * rotationPerDegree);
   }
 }

@@ -8,23 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.GunRotationSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 
-public class WheelCommand extends CommandBase {
+public class ClimbCommand extends CommandBase {
   /**
-   * Creates a new WheelCommand.
+   * Creates a new ClimbCommand.
    */
-
-   ShooterSubsystem m_shooter;
-   GunRotationSubsystem m_rotation;
-   
-  public WheelCommand(ShooterSubsystem shoot, GunRotationSubsystem rotation) {
-    addRequirements(shoot);
-    addRequirements(rotation);
-
-    m_shooter = shoot;
-    m_rotation = rotation;
+  public ClimbCommand() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.

@@ -15,6 +15,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.AutoDriveCommand;
+import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.HighGoalCommand;
+import frc.robot.commands.LowGoalCommand;
+import frc.robot.commands.PickupCommand;
+import frc.robot.commands.WheelCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.GunRotationSubsystem;
@@ -31,17 +36,18 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private final DriveSubsystem m_driveTrain = new DriveSubsystem();
-
   private final PickupSubsystem m_PickupSubsystem = new PickupSubsystem();
-
   private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
-
   private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
-
   private final GunRotationSubsystem m_GunRotationSubsystem = new GunRotationSubsystem();
 
   //Declare commands
   private final AutoDriveCommand m_autoCommand = new AutoDriveCommand(m_driveTrain);
+  private final HighGoalCommand m_highGoal = new HighGoalCommand(m_ShooterSubsystem, m_GunRotationSubsystem);
+  private final LowGoalCommand m_lowGoal = new LowGoalCommand(m_ShooterSubsystem, m_GunRotationSubsystem);
+  private final PickupCommand m_pickup = new PickupCommand(m_PickupSubsystem, m_ShooterSubsystem);
+  private final WheelCommand m_wheel = new WheelCommand(m_ShooterSubsystem, m_GunRotationSubsystem);
+  private final ClimbCommand m_climb = new ClimbCommand();
 
   //private final XboxController m_controller = new XboxController(0);
   private final Joystick m_primaryTank = new Joystick(0);
@@ -94,13 +100,27 @@ public class RobotContainer {
     //final JoystickButton shooterButton = new JoystickButton(m_primaryTank, 1);
     final JoystickButton climbUpButton = new JoystickButton(m_primaryTank, 3);
     final JoystickButton climbDownButton = new JoystickButton(m_primaryTank, 2);
+
     final JoystickButton rotateUpGun = new JoystickButton(m_primaryTank, 3);
     final JoystickButton rotateDownGun = new JoystickButton(m_primaryTank, 2);
+
     final JoystickButton forwardConveyer = new JoystickButton(m_secondaryDriver, 3);
     final JoystickButton reverseConveyer = new JoystickButton(m_secondaryDriver, 2);
+
     final JoystickButton gunUp = new JoystickButton(m_secondaryDriver, 5);
     final JoystickButton gunDown = new JoystickButton(m_secondaryDriver, 4);
+
     final JoystickButton shooterButtonSecondary = new JoystickButton(m_secondaryDriver, 1);
+
+    final JoystickButton shootHigh = new JoystickButton(m_primaryTank, 5);
+    final JoystickButton shootLow = new JoystickButton(m_primaryTank, 4);
+
+    final JoystickButton pickupBalls = new JoystickButton(m_primaryTank, 2);
+    final JoystickButton wheelOfDestiny = new JoystickButton(m_primaryTank, 3);
+
+    final JoystickButton climbUp = new JoystickButton(m_primaryTurn, 3);
+
+    //Command buttons
 
     //intakeButton.whenPressed(() -> m_PickupSubsystem.Forward());
     //intakeButton.whenReleased(() -> m_PickupSubsystem.Stop());
@@ -138,6 +158,17 @@ public class RobotContainer {
 
     shooterButtonSecondary.whenPressed(() -> m_ShooterSubsystem.Shoot());
     shooterButtonSecondary.whenReleased(() -> m_ShooterSubsystem.Stop());
+
+    shootHigh.whenPressed(m_highGoal);
+    shootHigh.whenReleased(() -> m_highGoal.end(false));
+
+    shootLow.whenPressed(m_lowGoal);
+    shootLow.whenReleased(() -> m_lowGoal.end(false));
+
+    pickupBalls.whenPressed(m_pickup);
+    wheelOfDestiny.whenPressed(m_wheel);
+
+    climbUp.whenPressed(m_climb);
   }
 
   /**
