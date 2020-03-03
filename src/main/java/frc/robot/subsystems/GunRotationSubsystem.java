@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Encoder;
@@ -16,13 +19,11 @@ public class GunRotationSubsystem extends SubsystemBase {
    * Creates a new GunRotationSubsystem.
    */
 
-   private final Jaguar m_motor = new Jaguar(1);
+   private final WPI_VictorSPX m_motor = new WPI_VictorSPX(8);
    private final Encoder m_encoder = new Encoder(0, 1);
 
   public GunRotationSubsystem() {
-
-    System.out.println("Calibrated");
-
+    m_motor.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override

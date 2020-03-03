@@ -73,4 +73,14 @@ public class ShooterSubsystem extends SubsystemBase {
   {
     conveyorRelay.set(Value.kForward);
   }
+
+  public void SpinWheel()
+  {
+    shootMotors[0].set(-0.2);
+  }
+
+  public void SpinWheelBackwards()
+  {
+    shootMotors[0].set(0.2);
+  }
 }
