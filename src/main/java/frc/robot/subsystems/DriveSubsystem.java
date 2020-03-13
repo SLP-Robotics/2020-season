@@ -34,11 +34,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     //Instantiate left motor controller and right motor controller
-    leftMaster = new WPI_VictorSPX(2);
-    leftFollower = new WPI_VictorSPX(0);
+    leftMaster = new WPI_VictorSPX(0);
+    leftFollower = new WPI_VictorSPX(1);
 
-    rightMaster = new WPI_VictorSPX(3);
-    rightFollower = new WPI_VictorSPX(1);
+    rightMaster = new WPI_VictorSPX(2);
+    rightFollower = new WPI_VictorSPX(3);
 
     //Set motors to factory default settings
     leftMaster.configFactoryDefault();

@@ -7,7 +7,8 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Talon;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,15 +19,15 @@ public class ShooterSubsystem extends SubsystemBase {
    */
 
    //Create an array of Talons to shoot, only 2
-   private Talon[] shootMotors = new Talon[2];
+   private WPI_VictorSPX[] shootMotors = new WPI_VictorSPX[2];
    //Create a Relay variable for the spike controlling the conveyor
    private Relay conveyorRelay = new Relay(1);
   
    //Instantiate the talons
   public ShooterSubsystem() 
   {
-    shootMotors[0] = new Talon(5);
-    shootMotors[1] = new Talon(6);
+    shootMotors[0] = new WPI_VictorSPX(7);
+    shootMotors[1] = new WPI_VictorSPX(4);
   }
 
   @Override

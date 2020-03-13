@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
+@SuppressWarnings("unused")
 public class AutoDriveCommand extends CommandBase {
    //Create all the subsystems needed
    private final DriveSubsystem m_drive;
@@ -21,6 +22,11 @@ public class AutoDriveCommand extends CommandBase {
   public AutoDriveCommand(DriveSubsystem drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
+
+    String alliance = DriverStation.getInstance().getAlliance().toString();
+    String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+
+    System.out.println(alliance);
 
     m_drive = drive;
   }

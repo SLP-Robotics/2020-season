@@ -13,13 +13,12 @@ import edu.wpi.first.wpilibj.Joystick;
 //import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
+//import edu.wpi.cscore.UsbCamera;
+//import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 
 
@@ -35,15 +34,9 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  private DifferentialDrive m_robotDrive;
-
   private final Timer m_timer = new Timer();
 
-  private final Joystick m_primaryTank = new Joystick(0);
-
-  private static final SPI.Port port = SPI.Port.kOnboardCS0;
-
-  ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(port);
+  //ADXRS450_Gyro m_gyro = new ADXRS450_Gyro(port);
 
   //private final CAN m_can = new CAN(0, 5, 2);
 
@@ -56,18 +49,18 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    m_gyro.calibrate();
+    //m_gyro.calibrate();
     // if(CameraServer.getInstance().startAutomaticCapture(0) != null)
     //   System.out.println("camera work");
     // else
     //   System.out.println("no work");
 
-    UsbCamera a = CameraServer.getInstance().startAutomaticCapture(0);
+    //UsbCamera a = CameraServer.getInstance().startAutomaticCapture(0);
     
-    if(a.isConnected())
-    {
-      System.out.println("bruh");
-    }
+    // if(a.isConnected())
+    // {
+    //   System.out.println("bruh");
+    // }
   }
 
   /**
@@ -147,10 +140,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    if(m_primaryTank.getRawButtonPressed(8))
-      System.out.println(m_gyro.getAngle());
-    else if(m_primaryTank.getRawButtonPressed(9))
-      m_gyro.reset();
+    // if(m_primaryTank.getRawButtonPressed(8))
+    //   System.out.println(m_gyro.getAngle());
+    // else if(m_primaryTank.getRawButtonPressed(9))
+    //   m_gyro.reset();
   }
 
   @Override

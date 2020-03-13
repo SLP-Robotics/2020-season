@@ -12,12 +12,11 @@ import frc.robot.subsystems.GunRotationSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class WheelCommand extends CommandBase {
-  /**
-   * Creates a new WheelCommand.
-   */
-
    ShooterSubsystem m_shooter;
    GunRotationSubsystem m_rotation;
+
+   public static boolean isManual = false;
+
    
   public WheelCommand(ShooterSubsystem shoot, GunRotationSubsystem rotation) {
     addRequirements(shoot);

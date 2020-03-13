@@ -24,6 +24,8 @@ public class LowGoalCommand extends CommandBase {
 
   Timer m_timer;
 
+  public static boolean isManual = false;
+
   public LowGoalCommand(ShooterSubsystem shooter, GunRotationSubsystem rotate) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter);
@@ -31,6 +33,8 @@ public class LowGoalCommand extends CommandBase {
 
     m_shooter = shooter;
     m_rotate = rotate;
+
+    m_timer = new Timer();
   }
 
   // Called when the command is initially scheduled.
@@ -42,10 +46,13 @@ public class LowGoalCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_timer.get() <= 3)
-      m_rotate.Down();
-    else
-      m_rotate.Stop();
+    // if(!isManual)
+    // {
+    //   if(m_timer.get() <= 3)
+    //     m_rotate.Down();
+    //   else
+    //     m_rotate.Stop();
+    // }
   }
 
   // Called once the command ends or is interrupted.
@@ -66,5 +73,13 @@ public class LowGoalCommand extends CommandBase {
     if(!running)
       return true;
     return false;
+  }
+
+  public void setManual()
+  {
+    if(isManual)
+      isManual = false;
+    else
+      isManual = true;
   }
 }

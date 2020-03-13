@@ -18,17 +18,22 @@ public class PickupCommand extends CommandBase {
    */
   private PickupSubsystem pickupSubsystem;
   private ShooterSubsystem shooterSubsystem;
+  private GunRotationSubsystem rotationSubsystem;
 
   public static boolean running;
+  public static boolean isManual = false;
+
 
   Timer m_timer;
 
-  public PickupCommand(PickupSubsystem pickup, ShooterSubsystem shooter) {
+  public PickupCommand(PickupSubsystem pickup, ShooterSubsystem shooter, GunRotationSubsystem rotation) {
     addRequirements(pickup);
     addRequirements(shooter);
+    addRequirements(rotation);
 
     pickupSubsystem = pickup;
     shooterSubsystem = shooter;
+    rotationSubsystem = rotation;
 
     m_timer = new Timer();
   }
@@ -45,9 +50,13 @@ public class PickupCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      pickupSubsystem.Move(0.45);
-      shooterSubsystem.Foward();
-
+    if(!isManual)
+    {
+        //if(rotationSubsystem.isUp())
+          //rotationSubsystem.Up(); 
+        pickupSubsystem.Move(1);
+        shooterSubsystem.Foward();
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -64,5 +73,13 @@ public class PickupCommand extends CommandBase {
     if(running)
       return true;
     return false;
+  }
+
+  public void setManual()
+  {
+    if(isManual)
+      isManual = false;
+    else
+      isManual = true;
   }
 }
